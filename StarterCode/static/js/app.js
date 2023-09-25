@@ -33,7 +33,7 @@ d3.json(query_url).then(function(data) {
     // Extract needed samples
     const samples = data.samples;
   
-    // Function to Create Chart using Plotly
+    // Function to create chart using Plotly
     function makeChart(sample) {
       // Prepare our Data
       const { otu_ids, sample_values, otu_labels } = sample;
@@ -46,7 +46,7 @@ d3.json(query_url).then(function(data) {
       });
   
   
-      // Sort and Filter Top 10 Samples
+      // Sort and filter largest 10 samples
       const sortedData = sampleData.sort((a, b) => b.sample_value - a.sample_value).slice(0, 10);
       sortedData.reverse();
       
@@ -78,11 +78,11 @@ d3.json(query_url).then(function(data) {
         }
       };
   
-      // Layout for Plotly bubble chart
+      // Simple layout for Plotly bubble chart
       const bubbleLayout = {
-        title: "OTU ID",
-        xaxis: { title: "OTU ID" },
-        yaxis: { title: "Sample Values" }
+        title: "OTU IDs",
+        xaxis: { title: "OTU IDs" },
+        yaxis: { title: "Sample Value" }
       };
   
       // Create Plotly chart
@@ -90,11 +90,11 @@ d3.json(query_url).then(function(data) {
       Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout);
     }
   
-    // Create Chart with First Sample
+    // Seed initial data for plot/page load
     makeChart(samples[0]);
     makeMeta(metadata[0]);
   
-    // Update Plot on Dropdown Change
+    // Update plot on dropdown
     d3.select("#selDataset").on("change", function() {
       const selectedID = this.value;
       const selectedSample = samples.find(sample => sample.id === selectedID);
